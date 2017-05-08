@@ -53,9 +53,7 @@ public class MainActivity extends AppCompatActivity {
                             .replace(R.id.main_screen, listFragment)
                             .addToBackStack(ListFragment.TAG)
                             .commit();
-                    List<String> list = new ArrayList<>();
-                    list.add("自定义View");
-                    listFragment.setListAdapter(MainActivity.this, list);
+                    listFragment.setListAdapter(MainActivity.this, getChapterThreeList());
                     listFragment.setListOnClick(mThreeListOnClick);
                     break;
             }
@@ -77,9 +75,20 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
     };
+
+
     private void initData(){
         dataList.add("第三章");
     }
 
+    /*定义第三章的list*/
+    private List<String> getChapterThreeList(){
+        List<String> list = new ArrayList<>();
+        list.add("Teaching View");
+        list.add("My TextView");
+        list.add("JrdToolBar");
+        list.add("JrdCircleView");
+        return list;
+    }
 
 }

@@ -29,8 +29,9 @@ public class JrdTeachingView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         //对View进行测量,View有两中属性，一种Mode, 一种size
-        setMeasuredDimension(getMeasureWidth(widthMeasureSpec), getMeasureHeight(heightMeasureSpec));
-
+        int width = getMeasureWidth(widthMeasureSpec);
+        int height = getMeasureHeight(heightMeasureSpec);
+        setMeasuredDimension(width, height);
     }
 
     /*长和宽*/

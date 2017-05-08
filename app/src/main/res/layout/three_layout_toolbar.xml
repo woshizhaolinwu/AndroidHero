@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <jrdcom.com.androidhero.Three.JrdToolBar
+        android:id="@+id/jrd_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#dddddd"
+        custom:title="Toolbar Test"
+        custom:titleColor="#000000"
+        custom:titleSize="10sp"
+        custom:leftColor="#ff0000"
+        custom:leftText="Back"
+        custom:rightColor="#00ff00"
+        custom:rightText="Done"
+        ></jrdcom.com.androidhero.Three.JrdToolBar>
+</LinearLayout>
