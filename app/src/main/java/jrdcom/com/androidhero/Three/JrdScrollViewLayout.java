@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +83,9 @@ public class JrdScrollViewLayout extends ViewGroup {
             case MotionEvent.ACTION_MOVE:
                 int count = getChildCount();
                 int y = (int) event.getY(); //获取当前点击的Y
-                if(mStartY == 0){ //如果当前没有偏移量， 则判断向上还是向下
+                int dy = (y - mLastY);
+                Log.d("zlwu","startY = "+mStartY+"y ="+y+"mLastY"+mLastY);
+                if((mStartY - dy) <= 0){ //如果当前没有偏移量， 则判断向上还是向下
                     if(y > mLastY){ //当前是第一页，则不需要向下滑动
                         mLastY = y;
                         return true;
@@ -98,6 +101,7 @@ public class JrdScrollViewLayout extends ViewGroup {
 
                 //进行滑动
                 scrollBy(0, mLastY -y);
+                mLastY = y;
                 break;
             case MotionEvent.ACTION_UP:
                 /*在这里就要做些判断
@@ -105,15 +109,26 @@ public class JrdScrollViewLayout extends ViewGroup {
                 * mCurrentY 获取当前的偏移量
                 * */
                 int mCurrentY= (int)getScrollY();
-                if(mCurrentY > mStartY){ //向下
+                if(mCurrentY > mStartY){ //向上
                     if((mCurrentY - mStartY) > mScreenHeight/3){
-
+                        //滚动到下一屏幕
+                        mScroller.startScroll(0, mCurrentY, 0, mStartY+mScreenHeight - mCurrentY);
+                    }else{
+                        //回滚
+                        mScroller.startScroll(0, mCurrentY, 0, mStartY -mCurrentY);
                     }
 
                 }else if(mCurrentY < mStartY) //向上
                 {
-
+                    if((mStartY - mCurrentY) > mScreenHeight/3){
+                        //滚动到上一个屏幕
+                        mScroller.startScroll(0, mCurrentY, 0, (mStartY - mCurrentY)-mScreenHeight);
+                    }else{
+                        //回滚
+                        mScroller.startScroll(0, mCurrentY, 0, mStartY - mCurrentY);
+                    }
                 }
+                postInvalidate();
 
                 break;
         }
@@ -129,4 +144,11 @@ public class JrdScrollViewLayout extends ViewGroup {
         return wm.getDefaultDisplay().getHeight();
     }
 
+    @Override
+    public void computeScroll() {
+        super.computeScroll();
+        if(mScroller.computeScrollOffset()){
+            scrollTo(0, mScroller.getCurrY());
+        }
+    }
 }
