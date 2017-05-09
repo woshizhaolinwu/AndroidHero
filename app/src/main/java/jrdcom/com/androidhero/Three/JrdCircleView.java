@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Scroller;
 
 /**
  * Created by longcheng on 2017/5/8.
@@ -62,5 +63,6 @@ public class JrdCircleView extends View {
         * */
         RectF rectF = new RectF((float) (0.1*lenght),(float)0.1*lenght, (float)0.9*lenght,(float)0.9*lenght);
         canvas.drawArc(rectF, 0, 270, false, mArcPaint);
+
     }
 }

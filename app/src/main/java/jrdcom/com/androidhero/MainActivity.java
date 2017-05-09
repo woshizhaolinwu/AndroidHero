@@ -88,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
         list.add("My TextView");
         list.add("JrdToolBar");
         list.add("JrdCircleView");
+        list.add("JrdScrollView");
+        list.add("JrdScrollViewGroup");
         return list;
     }
 

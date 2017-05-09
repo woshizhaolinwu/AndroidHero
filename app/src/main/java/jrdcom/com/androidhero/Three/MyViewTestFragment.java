@@ -50,6 +50,12 @@ public class MyViewTestFragment extends Fragment {
             case 3: //CircleView
                 layoutId = R.layout.three_layout_circleview;
                 break;
+            case 4:
+                layoutId = R.layout.three_layout_scrollview;
+                break;
+            case 5: //ScrollViewLayout
+                layoutId = R.layout.three_layout_scrollview_group;
+                break;
         }
         return layoutId;
     }
