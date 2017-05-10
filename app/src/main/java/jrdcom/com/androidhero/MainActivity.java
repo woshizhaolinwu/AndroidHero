@@ -6,6 +6,7 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.List;
 
+import jrdcom.com.androidhero.Four.MyFourTestFragment;
 import jrdcom.com.androidhero.Three.MyViewTestFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,9 +57,24 @@ public class MainActivity extends AppCompatActivity {
                     listFragment.setListAdapter(MainActivity.this, getChapterThreeList());
                     listFragment.setListOnClick(mThreeListOnClick);
                     break;
+                case JrdCommon.CHAPTER_FOUR: //第四章
+                    //进入第四章的界面， 第四章也是这个list
+                    ListFragment listFragment4 = new ListFragment();
+                    getFragmentManager().beginTransaction()
+                        .replace(R.id.main_screen, listFragment4)
+                        .addToBackStack(ListFragment.TAG)
+                        .commit();
+                    listFragment4.setListAdapter(MainActivity.this, getChapterFourList());
+                    listFragment4.setListOnClick(mFourListOnClick);
+                    break;
             }
         }
     };
+
+    private void initData(){
+        dataList.add("第三章-控件基础");
+        dataList.add("第四章-绘图基础");
+    }
 
     /*第三章的list*/
     private ListFragment.ListOnClick mThreeListOnClick = new ListFragment.ListOnClick() {
@@ -76,10 +92,21 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-
-    private void initData(){
-        dataList.add("第三章");
-    }
+    /*第四章的list*/
+    private ListFragment.ListOnClick mFourListOnClick = new ListFragment.ListOnClick() {
+        @Override
+        public void onClick(int position) {
+            /*第三章中的所有的View都是传递到一个fragment里面*/
+            MyFourTestFragment myViewTestFragment = new MyFourTestFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("type", position);
+            myViewTestFragment.setArguments(bundle);
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.main_screen, myViewTestFragment)
+                    .addToBackStack(MyViewTestFragment.TAG)
+                    .commit();
+        }
+    };
 
     /*定义第三章的list*/
     private List<String> getChapterThreeList(){
@@ -90,6 +117,14 @@ public class MainActivity extends AppCompatActivity {
         list.add("JrdCircleView");
         list.add("JrdScrollView");
         list.add("JrdScrollViewGroup");
+        return list;
+    }
+
+    /*定义第四章的list*/
+    private List<String> getChapterFourList(){
+        List<String> list = new ArrayList<>();
+        list.add("ShpaeTest");
+        list.add("TimeView");
         return list;
     }
 
