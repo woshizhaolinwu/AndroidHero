@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
         if(getFragmentManager().getBackStackEntryCount() > 1){
             getFragmentManager().popBackStack();
         }else{
-            super.onBackPressed();
+            finish();
+            //super.onBackPressed();
         }
     }
     /*Main list*/
@@ -125,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
         List<String> list = new ArrayList<>();
         list.add("ShpaeTest");
         list.add("TimeView");
+        list.add("PrimaryColor");
+        list.add("MatrixColor");
         return list;
     }
 

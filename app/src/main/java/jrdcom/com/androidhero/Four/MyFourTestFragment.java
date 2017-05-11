@@ -1,11 +1,20 @@
 package jrdcom.com.androidhero.Four;
 
 import android.app.Fragment;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.SeekBar;
 
 import jrdcom.com.androidhero.R;
 import jrdcom.com.androidhero.Three.JrdToolBar;
@@ -18,6 +27,7 @@ public class MyFourTestFragment extends Fragment {
     int mType = 0;
     private JrdToolBar jrdToolBar;
     public final static String TAG = MyFourTestFragment.class.getSimpleName();
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,8 +51,16 @@ public class MyFourTestFragment extends Fragment {
                 layoutId = R.layout.four_layout_shape;
             break;
 
-            case 1:
+            case 1: //Time+layer
                 layoutId = R.layout.four_layout_time;
+                break;
+
+            case 2: //Color Primary
+                layoutId = R.layout.four_layout_color_primary;
+                break;
+
+            case 3: //Color Matrix
+                layoutId = R.layout.four_layout_color_matrix;
                 break;
 
         }
@@ -51,9 +69,21 @@ public class MyFourTestFragment extends Fragment {
 
     private void doFunction(View view){
         switch (mType){
-
+            case 2: //ColorPrimary
+                JrdColorPrimary jrdColorPrimary = new JrdColorPrimary(getActivity(), view);
+                break;
+            case 3: //ColorMatrix
+                JrdColorMatrix jrdColorMatrix = new JrdColorMatrix(getActivity(), view);
+                break;
         }
     }
+
+
+
+
+
+
+
 
 
 }
