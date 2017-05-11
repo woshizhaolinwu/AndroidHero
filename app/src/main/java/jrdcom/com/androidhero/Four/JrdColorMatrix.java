@@ -3,8 +3,14 @@ package jrdcom.com.androidhero.Four;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.media.Image;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,16 +30,18 @@ import jrdcom.com.androidhero.R;
 public class JrdColorMatrix  {
     /*控件*/
     private ImageView imageView;
+    private Bitmap bitmap;
     private Button btnChange;
     private Button btnReset;
     private RecyclerView recyclerView;
-
+    private float[] mColorMatrix = new float[20];
     //数据列表
     private List<String> mDataList;
 
     public JrdColorMatrix(Context context, View view){
         findView(view);
         initView(context);
+        changeMatrix();
     }
 
     private void findView(View view){
@@ -50,7 +58,9 @@ public class JrdColorMatrix  {
 
     private void initView(Context  context){
         initImage(context);
-        initRecyclerView();
+        initRecyclerView(context);
+        bitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.lufy);
+        imageView.setImageBitmap(bitmap);
     }
 
     private void initImage(Context context){
@@ -58,11 +68,12 @@ public class JrdColorMatrix  {
         imageView.setImageBitmap(imageBitmap);
     }
 
-    private void initRecyclerView(){
+    private void initRecyclerView(Context context){
         //初始化 RecyclerView
         //定义adapter
-
+        recyclerView.setAdapter(new EditTextAdapter(context));
         //定义layoutManager
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL));
 
 
     }
@@ -74,7 +85,7 @@ public class JrdColorMatrix  {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.btn_change:
-
+                    changeMatrix();
                     break;
                 case R.id.btn_reset:
 
@@ -103,12 +114,13 @@ public class JrdColorMatrix  {
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.four_edittext_item, parent,false);
-
+            JrdViewHolder jrdViewHolder  = new JrdViewHolder(view);
+            return  jrdViewHolder;
         }
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+            ((JrdViewHolder)holder).editText.setText(mDataList.get(position));
         }
 
         @Override
@@ -117,9 +129,30 @@ public class JrdColorMatrix  {
         }
 
         private class JrdViewHolder extends RecyclerView.ViewHolder{
-            
+            private EditText editText;
+            public JrdViewHolder(View view){
+                super(view);
+                editText = (EditText)view.findViewById(R.id.edit_text);
+            }
+
         }
+    }
 
+    private void changeMatrix(){
+        Bitmap bitmap1 = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap1);
+        getMatrix();
+        ColorMatrix colorMatrix = new ColorMatrix();
+        colorMatrix.set(mColorMatrix);
+        Paint paint = new Paint();
+        paint.setColorFilter(new ColorMatrixColorFilter(colorMatrix));
+        canvas.drawBitmap(bitmap,0, 0, paint);
+        imageView.setImageBitmap(bitmap1);
+    }
 
+    private void getMatrix(){
+        for(int i = 0; i < 20; i++){
+            mColorMatrix[i] =Float.valueOf(mDataList.get(i));
+        }
     }
 }
