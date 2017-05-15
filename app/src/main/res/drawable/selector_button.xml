@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:enterFadeDuration="500" android:exitFadeDuration="500">
+    <!--默认状态-->
+    <item android:drawable="@drawable/bg_btn_normal"/>
+    <!--被选中-->
+    <item android:drawable="@drawable/bg_btn_selected" android:state_selected="true"/>
+    <!--被按压-->
+    <item android:drawable="@drawable/bg_btn_pressed" android:state_pressed="true"/>
+</selector>

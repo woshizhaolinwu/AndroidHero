@@ -128,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
         list.add("TimeView");
         list.add("PrimaryColor");
         list.add("MatrixColor");
+        list.add("ColorPixel");
+
         return list;
     }
 

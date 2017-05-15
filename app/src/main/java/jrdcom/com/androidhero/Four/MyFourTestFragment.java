@@ -62,7 +62,9 @@ public class MyFourTestFragment extends Fragment {
             case 3: //Color Matrix
                 layoutId = R.layout.four_layout_color_matrix;
                 break;
-
+            case 4: //Color Pixel
+                layoutId = R.layout.four_layout_color_pixel;
+                break;
         }
         return layoutId;
     }
@@ -74,6 +76,9 @@ public class MyFourTestFragment extends Fragment {
                 break;
             case 3: //ColorMatrix
                 JrdColorMatrix jrdColorMatrix = new JrdColorMatrix(getActivity(), view);
+                break;
+            case 4: //ColorPixel
+                JrdColorPixel jrdColorPixel = new JrdColorPixel(getActivity(), view);
                 break;
         }
     }
